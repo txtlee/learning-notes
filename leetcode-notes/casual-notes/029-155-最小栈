@@ -1,4 +1,6 @@
-"""
+# 最小栈
+
+## 题目
 设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。
 
 实现 MinStack 类:
@@ -28,8 +30,16 @@ minStack.getMin();   --> 返回 -3.
 minStack.pop();
 minStack.top();      --> 返回 0.
 minStack.getMin();   --> 返回 -2.
-"""
 
+## 解题思路
+主栈 + 辅助栈
+注意！
+if not self.min_stack or value <= self.min_stack[-1]:
+这行代码里的 <= 不能改为 <
+**当新压入栈的值 value 等于当前辅助栈栈顶的最小值时，比如压入，不然在 pop() 操作后无法恢复之前的最小值**
+
+## 代码
+```python
 class MinStack(object):
 
     def __init__(self):
@@ -73,4 +83,4 @@ class MinStack(object):
         if self.min_stack:
             return self.min_stack[-1]
         return None
-        
+```
