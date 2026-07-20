@@ -1,4 +1,6 @@
-"""
+# 逆波兰表达式求值
+
+## 题目
 给你一个字符串数组 tokens ，表示一个根据 逆波兰表示法 表示的算术表达式。
 
 请你计算该表达式。返回一个表示表达式值的整数。
@@ -35,8 +37,14 @@
 = (0 + 17) + 5
 = 17 + 5
 = 22
-"""
 
+## 解题思路
+就是栈，不知道为什么我的就是过不了第三个测试用例
+注意python没有向零取整，只有向下取整，向零取整的话直接用int()
+**向零取整和向下取整的区别**
+
+## 代码
+```python
 class Solution(object):
     def evalRPN(self, tokens):
         """
@@ -44,24 +52,24 @@ class Solution(object):
         :rtype: int
         """
         stack = []
-        for i in range(len(tokens)):
-            token = tokens[i]
+        for token in tokens:
+            
             if token not in ("+", "-", "*", "/"):
-                stack.append(token)
+                stack.append(int(token))
                 continue
             num2 = stack.pop()
             num1 = stack.pop()
             if token == "+":
-                stack.append(int(num2) + int(num1))
+                stack.append(num1 + num2)
                 continue
             if token == "-":
-                stack.append(int(num2) - int(num1))
+                stack.append(num1 - num2)
                 continue
-            if token == "+":
-                stack.append(int(num2) * int(num1))
+            if token == "*":
+                stack.append(num1 * num2)
                 continue
-            if token == "+":
-                stack.append(int(num2) // int(num1))
+            if token == "/":
+                stack.append(int(num1 / num2))
                 continue
-        print(stack)
-        return stack[-1]
+        return stack[0]
+```
